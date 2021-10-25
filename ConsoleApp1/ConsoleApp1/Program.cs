@@ -2,124 +2,157 @@
 
 namespace ConsoleApp1
 {
-    class Program {
+    class Program
+    {
+
         // muestro matriz, recorro
-        static public void MuestroMatriz(string[,] Matriz)
+        static public void muestroMatriz(string[,] matriz)
         {
-            for (int indiceP = 0; indiceP < Matriz.GetLength(0); indiceP++)
+            Console.Clear();
+            for (int iF = 0; iF < matriz.GetLength(0); iF++)
             {
-                for (int indiceF = 0; indiceF < Matriz.GetLength(1); indiceF++)
+                for (int IC = 0; IC < matriz.GetLength(1); IC++)
                 {
-                    Console.Write(Matriz[indiceP, indiceF] + " ");
+                    Console.Write(matriz[iF, IC] + " ");
                 }
                 Console.WriteLine();
+
+
             }
+            Console.ReadLine();
         }
-        // NO SE SI ESO ESTA BIEN
-       
+
+
+
         // MENU
-        public static void menu ()
+
+        public static void Menu(string[,] matriz)
         {
-            Console.Clear();
-            Console.WriteLine("**************************************************");
-            Console.WriteLine("MENU");
-            Console.WriteLine("************************************************** \n");
+            bool sigoEjecutando = true;
+            string OpcionMenu = "";
 
-            Console.WriteLine("1- Agregar frase");
-
-            Console.WriteLine("2- Invertir frase");
-
-            Console.WriteLine("3- Mostrar todas las frases");
-
-            Console.WriteLine("4- Buscar una palabra ");
-
-            Console.WriteLine("5- Salir \n"); // no lo pide pero en la clase siempre lo pone asi que por las dudas lo puse 
-
-            Console.Write("ingrese su opcion: ");
-        }
-        public static bool procesoMenu(string Opcion)
-        {
-            switch (Opcion.Trim())
+            // despliego el menu y determino acciones
+            while (sigoEjecutando)
             {
-                case "1":
-                    {
-                        //agregarFrase();
-                        break;
-                    }
-                case "2":
-                    {
-                        //"invertir frase"
-                        break;
-                    }
-                case "3":
-                    {
-                        MuestroMatriz() ; // aca seria desplegar todo lo que se escribio es solo recorrer la matriz,  
-                        break;
-                    }
-                case "4":
-                    {
-                        // buscar una palabra, hay un ejemplo de como hacerlo  en el ejercicio que hicimos ayer
-                        break;
-                    }
-                case "5": return (false);
+                Console.Clear();
+                Console.WriteLine("*******************************************");
+                Console.WriteLine("MENU " + "\n");
+                Console.WriteLine("1- Agregar Frase");
+                Console.WriteLine("2 Invertir Frase");
+                Console.WriteLine(" 3- Mostrar todas las frases");
+                Console.WriteLine("4- Buscar una palabra ");
+                Console.WriteLine("5- Salir " + "\n");
+                Console.WriteLine("*********************************************");
 
-                default:
-                    Console.WriteLine("opcion de menu invalida");
-                    Console.ReadLine();
-                    break;
-            }
-            return (true); // para que vuelva a repetirse el menu
-        }
+                OpcionMenu = Console.ReadLine();
 
-
-        
-
-           
-        
-        static void Main(string[] args)
-        {
-            // creacion de la matriz
-            string[,] frases = new string[25, 10];
-           
-
-                
-                 
-           
-            
-        }
-
-        //agregar frase
-        public static void agregarFrase(string[,] frases, int cantFrases)
-        {
-            Console.Clear();
-            Console.WriteLine("Opcion 1: agregar frase");
-            Console.WriteLine();
-            if (frases.GetLength(0) >= cantFrases)
-            {
-                for (int i1 = 0; i1 < 1; i1 += 0)
+                // verifico que ingreso el usuario y ejecuto accion
+                switch (OpcionMenu)
                 {
-                    try
-                    {
-                        for (int i = 0; i < frases.GetLength(1); i++)
+                    case "1":
                         {
-                            Console.Write("Ingrese " + i++ + "º palabra: ");
-                            frases[cantFrases, i] = Console.ReadLine();
+                            agregarFrase(frases);
+                            break;
                         }
-                        cantFrases++;
-                        i1++;
-                    }
-                    catch
-                    {
-                        Console.WriteLine("Error, ingrese solamente palabras");
-                    }
+                    case "2":
+                        {
+                            // invertir Frase ;
+                            break;
+                        }
+                    case "3":
+                        {
+                            muestroMatriz(frases);
+                            break;
+                        }
+                    case "4":
+                        {
+                            // buscar una palabra 
+                            break;
+                        }
+                    case " 5":
+                        {
+                            sigoEjecutando = false;
+                            Console.Clear();
+                            Console.WriteLine("gracias por usar el programa");
+                            Console.ReadLine();
+                            break;
+                        }
+                    default:
+                        {
+                            Console.WriteLine("Error - ingrese una opcion valida ");
+                            Console.ReadLine();
+                            break;
+                        }
+
                 }
 
             }
+
+        }
+
+
+
+
+
+        static void Main(string[] args)
+        {
+
+            Menu(frases);
+
+        }
+        // variables que necesito para agregar frase 
+        static public int contadorfrase = 0;
+        static public int contadorColum = 0;
+        // ACA ESTA LA MATRIZ,ASI LA PODEMOS USAR EN CUALQUIER LADO
+        static public string[,] frases = new string[25, 10];
+
+        //agregar frase
+        static public void agregarFrase(string[,] matriz)
+        {
+
+
+
+
+
+            if (contadorfrase <= 25 && contadorfrase < matriz.GetLength(0))
+            {
+
+                //for (int iF = contadorfrase; iF < matriz.GetLength(0); iF++)
+                //if (contadorfrase < matriz.GetLength(0))
+
+
+
+                //{
+
+                for (int IC = contadorColum; IC < matriz.GetLength(1); IC++)
+                {
+
+                    Console.WriteLine("ingrese una palabra: ");
+                    matriz[contadorfrase, IC] = Console.ReadLine().Trim();
+
+
+                }
+
+
+                contadorfrase++;
+                Console.WriteLine("usted agrego una frase");
+                Console.ReadLine();
+                Console.WriteLine("usted va en la frase numero: " + " " + contadorfrase);
+                Console.ReadLine();
+                //break;
+
+
+                //}
+            }
+
             else
             {
-                Console.WriteLine("No queda mas espacio para otras frases.");
+                Console.WriteLine("no puede agregar mas frases");
                 Console.ReadLine();
             }
+
+
+
         }
     }
 }
